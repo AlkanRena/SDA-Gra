@@ -1,4 +1,3 @@
-<<<<<<< HEAD
   <script>
 
   /* Funkcja używana do tworzenia liczb pomiędzy min a max */
@@ -213,25 +212,25 @@ function Player(name, hitpoints, attackpoints, karmaPoints){
 				this.focus += 10;
 				attackPower = attackpoints;
 			}
-			
+
 			opponent.hitpoints -= attackPower
 
 			if (opponent.karma == 1) {
 				if (this.hitpoints > 0 && opponent.hitpoints > 0){
-					return console.log('%c' + this.name + ' atakuje za ' + attackPower + '. ' + opponent.name + ' ma jeszcze ' + opponent.hitpoints, enemyText); 
+					return console.log('%c' + this.name + ' atakuje za ' + attackPower + '. ' + opponent.name + ' ma jeszcze ' + opponent.hitpoints, enemyText);
 				} else {
 					return console.log('%c' + this.name + ' atakuje za ' + attackPower + '. ' + opponent.name + ' nie żyje', deadText);
 				}
 			} else {
 				if (this.hitpoints > 0 && opponent.hitpoints > 0){
-					return console.log('%c' + this.name + ' atakuje za ' + attackPower + '. ' + opponent.name + ' ma jeszcze ' + opponent.hitpoints, playerText); 
+					return console.log('%c' + this.name + ' atakuje za ' + attackPower + '. ' + opponent.name + ' ma jeszcze ' + opponent.hitpoints, playerText);
 				} else {
 					return console.log('%c' + this.name + ' atakuje za ' + attackPower + '. ' + opponent.name + ' nie żyje. Wygrałeś.', deadText);
 				}
 			}
 
 		}
-		
+
 	}
 }
 
@@ -360,4 +359,3 @@ console.dir(myCat);
 console.log(myCat.imie);
 console.log(myCat.rasa); */
 </script>
->>>>>>> parent of a863866... cleaning code
