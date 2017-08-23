@@ -1,3 +1,4 @@
+<<<<<<< HEAD
   <script>
 
   /* Funkcja używana do tworzenia liczb pomiędzy min a max */
@@ -177,3 +178,186 @@
   console.log(myCat.imie);
   console.log(myCat.rasa); */
   </script>
+=======
+<script>
+
+/* Funkcja używana do tworzenia liczb pomiędzy min a max */
+function randomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+/* Co powiecie na kolory w konsoli :) */
+const playerText = 'background: white; color: black; padding: 0 10px 0 10px; font-size: large;';
+const deadText = 'background: black; color: white; padding: 0 10px 0 10px; font-size: large;';
+const healText = 'background: blue; color: white; padding: 0 10px 0 10px; font-size: large;';
+const enemyText = 'background: red; color: white; padding: 0 10px 0 10px; font-size: large;';
+const usertext = 'background: green; color: white; padding: 0 10px 0 10px; font-size: large;';
+const focusAttack = 'background: yellow; color: black; padding: 0 10px 0 10px; font-size: large;';
+
+/* Kod budujący gracza i przeciwnika */
+function Player(name, hitpoints, attackpoints, karmaPoints){
+	this.name = name;
+	this.karma = karmaPoints;
+	this.hitpoints = hitpoints;
+	this.focus = 0;
+	this.attack = function attack(opponent) {
+		if (this.hitpoints > 0 && opponent.hitpoints > 0){
+			//zwiększyłem atak Conana bo mogę :P
+			if (this.battlecry && this.hitpoints < 50) {
+				attackPower = attackpoints + randomNumber(5, 20);
+			} else if (this.focus == 100) {
+				console.log('%c' + this.name + ' jest skupiony i jebnie.', focusAttack)
+				attackPower = attackpoints + randomNumber(5, 20);
+				this.focus = 0;
+			} else {
+				this.focus += 10;
+				attackPower = attackpoints;
+			}
+			
+			opponent.hitpoints -= attackPower
+
+			if (opponent.karma == 1) {
+				if (this.hitpoints > 0 && opponent.hitpoints > 0){
+					return console.log('%c' + this.name + ' atakuje za ' + attackPower + '. ' + opponent.name + ' ma jeszcze ' + opponent.hitpoints, enemyText); 
+				} else {
+					return console.log('%c' + this.name + ' atakuje za ' + attackPower + '. ' + opponent.name + ' nie żyje', deadText);
+				}
+			} else {
+				if (this.hitpoints > 0 && opponent.hitpoints > 0){
+					return console.log('%c' + this.name + ' atakuje za ' + attackPower + '. ' + opponent.name + ' ma jeszcze ' + opponent.hitpoints, playerText); 
+				} else {
+					return console.log('%c' + this.name + ' atakuje za ' + attackPower + '. ' + opponent.name + ' nie żyje. Wygrałeś.', deadText);
+				}
+			}
+
+		}
+		
+	}
+}
+
+
+/* Budowanie graczy */
+var p1 = new Player('Conan', 200, 15, 1);
+var p2 = new Player('Hercules', 200, 15, 1);
+var p3 = new Player('Doktorek', 50, 5, 1);
+
+/* Dodanie battle cry dla Conana */
+p1.battlecry = true;
+
+/* Nasz element heal otrzymał randomową liczbę pomiędzy 10 a 5 dzięki której leczy */
+p3.heal= function heal(targetPlayer) {
+	let randomHeal = randomNumber(5, 10);
+		if ((this.hitpoints > 0 && targetPlayer.hitpoints > 0) && (targetPlayer.hitpoints < 200)) {
+			targetPlayer.hitpoints += randomHeal;
+			return console.log('%c' + this.name + ' uleczył ' + targetPlayer.name + ' o ' + randomHeal + '. ' + targetPlayer.name + ' obecnie ma ' + targetPlayer.hitpoints, healText);
+		} else if (targetPlayer.hitpoints >= 200) {
+			return console.log('%c' + this.name + ' nie może uleczyć ' + targetPlayer.name + ' ma już za dużo punktów życia.', healText);
+		} else {
+			return console.log('%c' + targetPlayer.name + ' nie żyję nie można go uleczyć', deadText);
+		}
+};
+
+/* Budowanie przeciwnika */
+var boss = new Player('JavaScript', 600, 20, 0);
+
+
+/* Nasza akcja która pozwala nam zagrać */
+function jebnij() {
+	var basem = randomNumber(1, 18);
+	switch (basem) {
+	case 1:
+		return p1.attack(boss);
+	break;
+	case 2:
+		return p2.attack(boss);
+	break;
+	case 3:
+		return p3.heal(p1);
+	break;
+	case 4:
+		return p3.heal(p2);
+	break;
+	case 5:
+		return boss.attack(p1);
+	break;
+	case 6:
+		return boss.attack(p2);
+	break;
+	case 7:
+		return p1.attack(boss);
+	break;
+	case 8:
+		return p2.attack(boss);
+	break;
+	case 9:
+		return p3.heal(p1);
+	break;
+	case 10:
+		return p3.heal(p2);
+	break;
+	case 11:
+		return p3.attack(boss);
+	break;
+	case 12:
+		return boss.attack(p2);
+	break;
+	case 13:
+		return p1.attack(boss);
+	break;
+	case 14:
+		return p2.attack(boss);
+	break;
+	case 15:
+		return p3.heal(p1);
+	break;
+	case 16:
+		return p3.heal(p2);
+	break;
+	case 17:
+		return boss.attack(p1);
+	break;
+	case 18:
+		return p3.attack(boss);
+	break;
+	}
+}
+
+function life() {
+	console.log('%c' + 'Imię ' + p1.name + '\n' + 'Ilość życia: ' + p1.hitpoints + '\n' + 'Poziom skupienia: ' + p1.focus + '', usertext);
+	console.log('%c' + 'Imię ' + p2.name + '\n' + 'Ilość życia: ' + p2.hitpoints + '\n' + 'Poziom skupienia: ' + p2.focus + '', usertext);
+	console.log('%c' + 'Imię ' + p3.name + '\n' + 'Ilość życia: ' + p3.hitpoints + '\n' + 'Poziom skupienia: ' + p3.focus + '', usertext);
+	console.log('%c' + 'Imię ' + boss.name + '\n' + 'Ilość życia: ' + boss.hitpoints + '\n' + 'Poziom skupienia: ' + boss.focus + '', usertext);
+}
+
+
+while((boss.hitpoints>0) && (!((p1.hitpoints<1) && (p2.hitpoints<1)))) {
+	jebnij();
+	life();
+}
+
+
+/* prototype
+function Dog () {
+
+}
+
+Dog.prototype.rasa = "Buldog";
+
+var mojPies = new Dog();
+
+console.log(mojPies.rasa);
+
+mojPies.szczeka = 'Hau';
+*/
+/* __proto__
+var cat = {rasa : 'dachowiec'};
+var myCat = {imie : "programista"};
+var test = {test : "test"};
+myCat dziedziczy z cat
+Object.setPrototypeOf(myCat, cat);
+
+console.dir(myCat);
+console.log(myCat.imie);
+console.log(myCat.rasa); */
+</script>
+>>>>>>> parent of a863866... cleaning code
