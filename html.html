@@ -23,35 +23,29 @@ function Player(name, hitpoints, attackpoints, karmaPoints){
 		if (this.hitpoints > 0 && opponent.hitpoints > 0){
 			//zwiększyłem atak Conana bo mogę :P
 			if (this.battlecry && this.hitpoints < 50) {
+        console.log('%c' + this.name + ' wpadł w szał i jebnie.', playerText)
 				attackPower = attackpoints + randomNumber(5, 20);
 			} else if (this.focus == 100) {
-				console.log('%c' + this.name + ' jest skupiony i jebnie.', focusAttack)
+				console.log('%c' + this.name + ' jest skupiony i jebnie.', playerText)
 				attackPower = attackpoints + randomNumber(5, 20);
 				this.focus = 0;
 			} else {
 				this.focus += 10;
 				attackPower = attackpoints;
 			}
-			
-			opponent.hitpoints -= attackPower
 
-			if (opponent.karma == 1) {
+			opponent.hitpoints -= attackPower
 				if (this.hitpoints > 0 && opponent.hitpoints > 0){
-					return console.log('%c' + this.name + ' atakuje za ' + attackPower + '. ' + opponent.name + ' ma jeszcze ' + opponent.hitpoints, enemyText); 
+					return console.log('%c' + this.name + ' atakuje za ' + attackPower + '. ' + opponent.name + ' ma jeszcze ' + opponent.hitpoints, enemyText);
 				} else {
-					return console.log('%c' + this.name + ' atakuje za ' + attackPower + '. ' + opponent.name + ' nie żyje', deadText);
-				}
-			} else {
-				if (this.hitpoints > 0 && opponent.hitpoints > 0){
-					return console.log('%c' + this.name + ' atakuje za ' + attackPower + '. ' + opponent.name + ' ma jeszcze ' + opponent.hitpoints, playerText); 
-				} else {
-					return console.log('%c' + this.name + ' atakuje za ' + attackPower + '. ' + opponent.name + ' nie żyje. Wygrałeś.', deadText);
+          if (opponent.karma == 1) {
+					       return console.log('%c' + this.name + ' atakuje za ' + attackPower + '. ' + opponent.name + ' nie żyje', deadText);
+          } else {
+  					     return console.log('%c' + this.name + ' atakuje za ' + attackPower + '. ' + opponent.name + ' nie żyje. Wygrałeś.', deadText);
 				}
 			}
-
+			}
 		}
-		
-	}
 }
 
 
@@ -67,7 +61,12 @@ p1.battlecry = true;
 p3.heal= function heal(targetPlayer) {
 	let randomHeal = randomNumber(5, 10);
 		if ((this.hitpoints > 0 && targetPlayer.hitpoints > 0) && (targetPlayer.hitpoints < 200)) {
-			targetPlayer.hitpoints += randomHeal;
+      if (targetPlayer.hitpoints + randomHeal <= 200) {
+        targetPlayer.hitpoints += randomHeal;
+      } else {
+        targetPlayer.hitpoints = 200;
+      }
+
 			return console.log('%c' + this.name + ' uleczył ' + targetPlayer.name + ' o ' + randomHeal + '. ' + targetPlayer.name + ' obecnie ma ' + targetPlayer.hitpoints, healText);
 		} else if (targetPlayer.hitpoints >= 200) {
 			return console.log('%c' + this.name + ' nie może uleczyć ' + targetPlayer.name + ' ma już za dużo punktów życia.', healText);
@@ -150,8 +149,8 @@ function life() {
 
 
 while((boss.hitpoints>0) && (!((p1.hitpoints<1) && (p2.hitpoints<1)))) {
-	jebnij();
 	life();
+	jebnij();
 }
 
 
